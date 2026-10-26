@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17132d">
+<title>派对不许怂｜真心话大冒险</title>
+<style>
+:root{--bg:#17132d;--panel:#292342;--pink:#ff5c78;--cream:#fff0db;--text:#fff;--muted:#c6bddf}
+*{box-sizing:border-box}body{margin:0;background:#f6f3fb;color:#211b35;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:520px;margin:auto;padding:16px 14px 32px}
+.hero{background:linear-gradient(145deg,#17132d,#34234d);color:white;border-radius:26px;padding:22px;box-shadow:0 12px 35px #26163b22}
+.brand{display:flex;align-items:center;gap:12px}.logo{background:var(--pink);border-radius:15px;padding:12px;font-size:25px}.brand h1{font-size:22px;margin:0}.sub{font-size:11px;letter-spacing:1.4px;color:var(--muted);margin-top:4px}
+.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.pill{font-size:12px;background:#514064;color:#fff;padding:7px 11px;border-radius:99px}
+.stage{background:#292342;border-radius:22px;padding:19px 16px;margin-top:18px}.stagehead{display:flex;justify-content:space-between;align-items:center}.tag{background:#54344e;color:#ffd5df;border-radius:99px;padding:6px 10px;font-size:12px}.leveltag{font-size:12px;color:var(--muted)}
+.cardquestion{min-height:185px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px 4px}.bigicon{font-size:40px;margin-bottom:13px}.question{font-size:23px;line-height:1.5;font-weight:750;color:#fff;margin:0}.turn{font-size:13px;color:var(--muted);margin-top:14px}
+.scores{display:grid;grid-template-columns:1fr 1fr;gap:10px}.score{background:#3a2b56;padding:13px;border-radius:14px}.score small{color:#d8cbef}.score strong{display:block;color:white;font-size:22px;margin-top:4px}
+.footnote{text-align:center;font-size:11px;color:var(--muted);margin-top:13px}
+.panel{background:white;border-radius:22px;padding:19px;margin-top:14px;box-shadow:0 5px 20px #2819430a}.panel h2{font-size:18px;margin:0 0 14px}
+.options{display:grid;gap:9px}.option{display:flex;align-items:center;gap:10px;border:1px solid #e8e1f0;padding:12px;border-radius:14px;cursor:pointer}.option:has(input:checked){border-color:#b45bce;background:#fbf5ff}.option input{accent-color:#9d53bd;width:17px;height:17px}.option span{font-size:14px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.btn{border:0;border-radius:14px;padding:14px 10px;font-size:15px;font-weight:700;cursor:pointer;min-height:48px}.btn:active{transform:scale(.98)}.truth{background:#ffe8ef;color:#a9234a}.dare{background:#fff0db;color:#944500}.primary{background:#8e49ae;color:white;width:100%;margin-top:12px}.outline{background:white;border:1px solid #ded5e9;color:#514361}.success{background:#e4f7eb;color:#207449}.smallactions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+input[type=text],textarea{width:100%;border:1px solid #e3dbea;border-radius:12px;padding:12px;font-size:15px;background:#fff;color:#211b35}label.field{display:block;font-size:13px;color:#655773;margin:12px 0 6px}
+.custombox{display:none;background:#f8f4fb;padding:13px;border-radius:15px;margin-top:12px}.custombox.show{display:block}
+.historyitem{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid #eee8f4}.historyitem:last-child{border-bottom:0}.historyicon{width:36px;height:36px;border-radius:12px;background:#ffe8ef;display:grid;place-items:center;flex-shrink:0}.historyitem p{margin:0;font-size:14px;line-height:1.45}.historyitem small{display:block;color:#877a94;margin-top:4px}
+.notice{background:#f0eaf8;border-radius:15px;padding:14px;color:#685779;font-size:12px;line-height:1.65;margin-top:14px}.notice strong{color:#49335f}.hidden{display:none}
+@media(min-width:560px){body{padding:20px 0}.app{padding-top:10px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="hero">
+ <div class="topline"><div class="brand"><div class="logo">🎉</div><div><h1>派对不许怂</h1><div class="sub">TRUTH OR DARE · PARTY TIME</div></div></div><div class="pill" id="round">第 0 轮</div></div>
+ <section class="stage">
+  <div class="stagehead"><span class="tag" id="kindTag">💬 真心话</span><span class="leveltag" id="levelTag">轻松模式</span></div>
+  <div class="cardquestion"><div class="bigicon" id="bigicon">🎲</div><p class="question" id="question">准备好了吗？选择玩法，抽取你的第一道挑战！</p><div class="turn" id="turn">轮到：玩家 A</div></div>
+  <div class="scores"><div class="score"><small id="labelA">玩家 A</small><strong id="scoreA">0 分</strong></div><div class="score"><small id="labelB">玩家 B</small><strong id="scoreB">0 分</strong></div></div>
+  <div class="footnote">完成挑战 +1 分 · 跳过不扣分 · 开心最重要</div>
+ </section>
+</header>
+<section class="panel">
+ <h2>01 · 选择游戏难度</h2>
+ <div class="options">
+  <label class="option"><input type="radio" name="level" value="轻松" checked><span>😆 <b>轻松搞笑</b> — 破冰热场，朋友聚会</span></label>
+  <label class="option"><input type="radio" name="level" value="心动"><span>💗 <b>心动暧昧</b> — 情侣互动，拉近距离</span></label>
+  <label class="option"><input type="radio" name="level" value="刺激"><span>🔥 <b>刺激进阶</b> — 尴尬挑战，深度话题</span></label>
+ </div>
+ <h2 style="margin-top:22px">02 · 抽取你的挑战</h2>
+ <div class="actions"><button class="btn truth" id="truthBtn">💬 真心话</button><button class="btn dare" id="dareBtn">⚡ 大冒险</button></div>
+ <button class="btn primary" id="againBtn">🔀 再抽一题</button>
+ <div class="smallactions"><button class="btn outline" id="nextBtn">换下一位</button><button class="btn outline" id="skipBtn">跳过本题</button></div>
+ <button class="btn success" id="completeBtn" style="width:100%;margin-top:9px">✓ 完成挑战，获得 1 分</button>
+</section>
+<section class="panel">
+ <h2>03 · 玩家设置</h2>
+ <label class="field" for="nameA">玩家 A 昵称</label><input id="nameA" type="text" maxlength="20" value="玩家 A">
+ <label class="field" for="nameB">玩家 B 昵称</label><input id="nameB" type="text" maxlength="20" value="玩家 B">
+ <div class="smallactions"><button class="btn outline" id="resetBtn">重新开局</button><button class="btn outline" id="toggleCustom">＋ 自定义题目</button></div>
+ <div class="custombox" id="customBox"><label class="field" for="customQuestion">写下自己的挑战</label><textarea id="customQuestion" rows="3" placeholder="例如：说出你最想和大家一起去的地方。"></textarea><div class="smallactions"><button class="btn primary" id="useCustom">使用这道题</button><button class="btn outline" id="cancelCustom">取消</button></div></div>
+</section>
+<section class="panel"><h2>最近抽取</h2><div id="history"><p style="color:#877a94;font-size:13px">还没有抽题记录，点击上方按钮开始游戏。</p></div></section>
+<div class="notice">🛡️ <strong>友善游戏规则</strong><br>不想回答就跳过，不强迫喝酒、不涉及危险行为、不公开他人隐私。任何人都可以随时暂停游戏。当前是本地网页原型，昵称、分数和记录只保存在当前页面运行期间。</div>
+</main>
+<script>
+const deck=[
+["真心话","轻松","你做过最社死的一件事是什么？"],["真心话","轻松","如果你的手机会说话，它会吐槽你什么？"],["真心话","轻松","你最奇怪的一个小习惯是什么？"],["真心话","轻松","在场谁最可能突然中彩票然后消失？"],["真心话","轻松","你小时候相信过最离谱的事情是什么？"],["真心话","轻松","你最近一次撒的小谎是什么？"],["真心话","轻松","如果必须卸载一个常用 App，你会删哪个？"],["真心话","轻松","你觉得自己最搞笑但别人不一定认可的优点是什么？"],
+["真心话","心动","你第一次见到对方时，心里冒出的第一句话是什么？"],["真心话","心动","什么小细节最容易让你对一个人心动？"],["真心话","心动","你最希望对方主动为你做的一件小事是什么？"],["真心话","心动","你理想中的约会是什么样的？"],["真心话","心动","你有没有偷偷翻过喜欢的人的社交主页？"],["真心话","心动","在场谁最符合你的理想型？可以选择不回答。"],
+["真心话","刺激","说出一件你一直想尝试、却还没鼓起勇气做的事。"],["真心话","刺激","你最害怕别人发现自己的哪个小缺点？"],["真心话","刺激","你曾经因为面子，做过什么后悔的决定？"],["真心话","刺激","如果可以听到一个人的真实想法，你会选谁？为什么？"],["真心话","刺激","你最想改变自己的一件事是什么？"],["真心话","刺激","有没有一个至今想起来还会脸红的瞬间？"],
+["大冒险","轻松","用播音腔介绍自己，仿佛你是刚上市的爆款产品。"],["大冒险","轻松","模仿一种动物 10 秒，让大家猜是什么。"],["大冒险","轻松","用最严肃的表情说三遍：我是一颗成熟的土豆。"],["大冒险","轻松","给自己起一个霸气外号，并解释它的来历。"],["大冒险","轻松","用夸张的广告语推销桌上的一件物品。"],
+["大冒险","心动","对指定玩家认真说出一个你欣赏他的地方。"],["大冒险","心动","和指定玩家进行 10 秒眼神挑战，谁先笑谁输。"],["大冒险","心动","给对方设计一个专属昵称，并解释原因。"],["大冒险","心动","用偶像剧语气说一句普通的日常用语。"],["大冒险","心动","和对方一起摆一个最离谱的合照姿势，不想拍照可以改成定格动作。"],
+["大冒险","刺激","即兴表演一段 15 秒的获奖感言，奖项是“年度最会拖延奖”。"],["大冒险","刺激","用三种不同情绪说出“晚饭吃什么”，让大家猜情绪。"],["大冒险","刺激","请大家给你一个无害的角色，你即兴表演 20 秒。"],["大冒险","刺激","用夸张的慢动作完成一个简单动作，比如坐下或挥手。"],["大冒险","刺激","向在场玩家发起石头剪刀布挑战，输的人表演一个搞笑表情。"]
+];
+let currentKind="真心话",currentPlayer=0,round=0,scores=[0,0],history=[];
+const $=id=>document.getElementById(id);
+function level(){return document.querySelector('input[name="level"]:checked').value}
+function names(){return [($("nameA").value.trim()||"玩家 A"),($("nameB").value.trim()||"玩家 B")]}
+function render(){let ns=names();$("round").textContent=`第 ${round} 轮`;$("levelTag").textContent=level()+"模式";$("turn").textContent="轮到："+ns[currentPlayer];$("labelA").textContent=ns[0];$("labelB").textContent=ns[1];$("scoreA").textContent=scores[0]+" 分";$("scoreB").textContent=scores[1]+" 分";$("kindTag").textContent=(currentKind==="真心话"?"💬 ":"⚡ ")+currentKind;$("bigicon").textContent=currentKind==="真心话"?"💬":"⚡";$("history").innerHTML=history.length?history.map(x=>`<div class="historyitem"><div class="historyicon">${x.k==="真心话"?"💬":"⚡"}</div><div><p>${escapeHtml(x.q)}</p><small>${x.k} · ${x.l}</small></div></div>`).join(""):'<p style="color:#877a94;font-size:13px">还没有抽题记录，点击上方按钮开始游戏。</p>'}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function draw(kind=currentKind){currentKind=kind;let pool=deck.filter(x=>x[0]===kind&&x[1]===level());let last=history[0]?.q;let choices=pool.filter(x=>x[2]!==last);if(!choices.length)choices=pool;let q=choices[Math.floor(Math.random()*choices.length)];if(!q)return;$("question").textContent=q[2];round++;history.unshift({k:q[0],l:q[1],q:q[2]});history=history.slice(0,6);render()}
+$("truthBtn").onclick=()=>draw("真心话");$("dareBtn").onclick=()=>draw("大冒险");$("againBtn").onclick=()=>draw();
+$("nextBtn").onclick=()=>{currentPlayer=(currentPlayer+1)%2;$("question").textContent="换人啦！现在由"+names()[currentPlayer]+"选择真心话或大冒险。";render()};
+$("skipBtn").onclick=()=>{currentPlayer=(currentPlayer+1)%2;$("question").textContent="已跳过这题。没有压力，继续快乐游戏！";render()};
+$("completeBtn").onclick=()=>{scores[currentPlayer]++;$("question").textContent="挑战完成！"+names()[currentPlayer]+" 获得 1 分 🎉";render()};
+$("resetBtn").onclick=()=>{if(confirm("确定重新开始并清空本局分数与记录吗？")){scores=[0,0];round=0;history=[];currentPlayer=0;currentKind="真心话";$("question").textContent="新的一局开始啦！请选择真心话或大冒险。";render()}};
+$("toggleCustom").onclick=()=>$("customBox").classList.toggle("show");$("cancelCustom").onclick=()=>$("customBox").classList.remove("show");
+$("useCustom").onclick=()=>{let q=$("customQuestion").value.trim();if(!q){alert("先写下一道题目吧！");return}currentKind="真心话";round++;$("question").textContent="自定义挑战："+q;history.unshift({k:"自定义",l:level(),q});history=history.slice(0,6);$("customQuestion").value="";$("customBox").classList.remove("show");render();$("kindTag").textContent="✍️ 自定义题目"};
+document.querySelectorAll('input[name="level"]').forEach(x=>x.addEventListener("change",()=>{$("levelTag").textContent=level()+"模式"}));
+["nameA","nameB"].forEach(id=>$(id).addEventListener("input",render));render();
+</script>
+</body></html>
